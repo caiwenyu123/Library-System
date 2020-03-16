@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <title>文煜的图书馆的后台页面</title>	
+	<script src="./js/jquery-2.2.3.min.js"></script>	
+    <meta charset="UTF-8">
+	<meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../css/fontawesome-all.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../css/blast.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style10.css" />
+    <link href="../css/style.css" rel='stylesheet' type='text/css' media="all">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:300,400,500" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Merriweather:300,400,700,900" rel="stylesheet">
+	<style>
+	ul{
+		display:flex;
+		justify-content:space-around;
+	}
+	#container{
+		background:lightgray;
+	}
+
+	</style>
+</head>
+<body>
+<div id="container">
+	<form class="form-inline" style="margin:0px auto">
+	  <div class="form-group">
+	    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="">
+	  </div>
+	  <button type="submit" class="btn btn-default" id="btn">搜索</button>
+	</form>
+	<ul>
+		<li><a href="/book?page=1">全部</a></li>
+		<li><a href="/book?page=1&tag=历史">历史</a></li>
+		<li><a href="/book?page=1&tag=文学">文学</a></li>
+		<li><a href="/book?page=1&tag=健康">健康</a></li>
+		<li><a href="/book?page=1&tag=艺术">艺术</a></li>
+		<li><a href="/book?page=1&tag=哲学">哲学</a></li>
+		<li><a href="/book?page=1&tag=科技">科技</a></li>
+	</ul>
+	<section class="blog py-lg-4 py-md-3 py-sm-3 py-3" id="blog">
+	    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">	
+	        <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">书籍列表(<%= data[0] %>)</h3>
+	        <div class="row">	
+	            <% for(i=0;i<data[1].length;i++){ %>	
+	            <div style="margin-top:20px;" class="col-lg-4 col-md-6 col-sm-6 blog-grid-flex">
+	                <div class="clients-color">
+	                    <img src="<%= data[1][i].imgurl %>"  style="width:100%;max-height:380px" class="img-fluid" alt="">
+	                    <div class="blog-txt-info">
+	                        <h4 class="mt-2"><a href="#" data-toggle="modal" data-target="#exampleModalLive" data-blast="color"><%= data[1][i].bookname %></a></h4>
+	                        <div class="news-date my-3">
+	                            <ul>
+	                                <li><span class="far fa-comments"></span><a href="#" data-toggle="modal" data-target="#exampleModalLive"><%= data[1][i].author %></a></li><br>
+									
+									<li class="mr-3"><span class="far fa-calendar-check"></span><a href="#" data-toggle="modal" data-target="#exampleModalLive"><%= data[1][i].publish %></a></li>
+	                            </ul>
+	                        </div>
+	                        <p style="max-height:100px;overflow-y:scroll">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= data[1][i].introsition %></p>
+	                        <div class="outs_more-buttn" >
+	                            <a href="#" data-toggle="modal" data-target="#exampleModalLive" data-blast="bgColor">More</a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>				
+	            <% } %>    
+	        </div>
+	    </div>
+	</section>
+</div>	
+</body>
+</html>
+<script>
+	    $('#btn').click(function(){
+			window.location.href='/book?page1&search='+$('#exampleInputEmail2').val();
+		});
+</script>
