@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <title>文煜的图书馆的后台页面</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../css/fontawesome-all.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../css/blast.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style10.css" />
+    <link href="../css/style.css" rel='stylesheet' type='text/css' media="all">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:300,400,500" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Merriweather:300,400,700,900" rel="stylesheet">
+	<style>
+	   img{
+		   width:150px;
+	   }
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h1>轮播图管理</h1>
+		<table class="table table-bordered">
+			<tr v-for="item in swiper_data">
+				<td  align="center">{{item.swiperId}}</td>				
+				<td  align="center"><span v-if="!(changeSwiper==item.swiperId)">{{item.titleOne}}</span><input v-else v-model="item.titleOne"type="text"></td>
+				<td  align="center"><span v-if="!(changeSwiper==item.swiperId)">{{item.titleTwo}}</span><input v-else v-model="item.titleTwo"type="text"></td>
+				<td  align="center"><span v-if="!(changeSwiper==item.swiperId)">{{item.titleThree}}</span><textarea v-else v-model="item.titleThree"type="text"></textarea> </td>
+				<td  align="center"><img  v-if="!(changeSwiper==item.swiperId)" :src="item.imgurl"><textarea v-else v-model="item.imgurl"type="text"></textarea> </td>
+				<td  align="center">
+					<button v-if="!(changeSwiper==item.swiperId)" @click = "swiperBtn(item.swiperId)" class="btn btn-info">修改</button>
+					<button @click = "updateSwiper(item)"  v-else class="btn btn-danger">确定</button>
+				</td>
+			</tr>
+		</table>
+		
+		<hr>
+		<h1>推荐书籍列表</h1>
+		<table class="table table-bordered">
+			<tr v-for="item in good_data">
+				<td  align="center">{{item.goodId}}</td>				
+				<td  align="center"><span v-if="!(changeGood==item.goodId)">{{item.title}}</span><input v-else v-model="item.title"type="text"></td>
+				<td  align="center"><span v-if="!(changeGood==item.goodId)">{{item.author}}</span><input v-else v-model="item.author"type="text"></td>
+				<td  align="center"><span v-if="!(changeGood==item.goodId)">{{item.introduction}}</span><textarea v-else v-model="item.introduction"type="text"></textarea> </td>
+				<td  align="center"><img  v-if="!(changeGood==item.goodId)" :src="item.imgurl"><textarea v-else v-model="item.imgurl"type="text"></textarea> </td>
+				<td  align="center">
+					<button v-if="!(changeGood==item.goodId)" @click = "goodBtn(item.goodId)" class="btn btn-info">修改</button>
+					<button @click = "updateGood(item)"  v-else class="btn btn-danger">确定</button>
+				</td>
+			</tr>
+		</table>
+		<h1>类别管理列表</h1>
+		<table class="table table-bordered">
+			<tr v-for="item in class_data">
+				<td  align="center">{{item.classId}}</td>				
+				<td  align="center"><span v-if="!(changeClass==item.classId)">{{item.title}}</span><input v-else v-model="item.title"type="text"></td>
+				<td  align="center"><span v-if="!(changeClass==item.classId)">{{item.introduction}}</span><textarea v-else v-model="item.introduction"type="text"></textarea> </td>
+				<td  align="center">
+					<button v-if="!(changeClass==item.classId)" @click = "classBtn(item.classId)" class="btn btn-info">修改</button>
+					<button @click = "updateClass(item)"  v-else class="btn btn-danger">确定</button>
+				</td>
+			</tr>
+		</table>
+		<hr>
+		<h1>新闻公告管理</h1>
+		<table class="table table-bordered">
+			<tr v-for="item in notice_data">
+				<td  align="center">{{item.noticeId}}</td>				
+				<td  align="center"><span v-if="!(changeNotice==item.noticeId)">{{item.titleTop}}</span><input v-else v-model="item.titleTop"type="text"></td>
+				<td  align="center"><span v-if="!(changeNotice==item.noticeId)">{{item.title}}</span><input v-else v-model="item.title"type="text"></td>
+				<td  align="center"><span v-if="!(changeNotice==item.noticeId)">{{item.content}}</span><textarea v-else v-model="item.content"type="text"></textarea> </td>
+				<td  align="center"><span v-if="!(changeNotice==item.noticeId)">{{item.titleBottom}}</span><textarea v-else v-model="item.titleBottom"type="text"></textarea> </td>
+				<td  align="center"><img  v-if="!(changeNotice==item.noticeId)" :src="item.imgurl"><textarea v-else v-model="item.imgurl"type="text"></textarea> </td>
+				<td  align="center">
+					<button v-if="!(changeNotice==item.noticeId)" @click = "noticeBtn(item.noticeId)" class="btn btn-info">修改</button>
+					<button @click = "updateNotice(item)"  v-else class="btn btn-danger">确定</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+<!--引入vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+		el:'#app',
+		data:{
+			swiper_data:'',
+			good_data:'',
+			class_data:'',
+			notice_data:'',
+			changeSwiper:'',
+			changeGood:'',
+			changeClass:'',
+			changeNotice:'',
+		},
+		methods:{
+			getSwiper:function(){
+				var that = this;
+				fetch('http://localhost:3000/admin/swiper').then(function(res){
+					return res.json();
+				}).then(function(res){
+					that.swiper_data = res.data;
+					// console.log(res);
+				});
+			},
+			swiperBtn:function(swiperId){
+				console.log(swiperId);
+				this.changeSwiper = swiperId;
+			},			
+			updateSwiper:function(obj){
+				var that = this;
+				var str ='swiperId='+obj.swiperId + '&titleOne=' + obj.titleOne + '&titleTwo=' + obj.titleTwo + '&titleThree=' + obj.titleThree + '&imgurl=' + obj.imgurl;
+			    console.log('http://localhost:3000/admin/update?'+str);
+				console.log(obj)
+				//注意地址格式....http://
+			    fetch('http://localhost:3000/admin/updateSwiper?'+str).then(function(res){
+					return res.json();
+					console.log(res);					
+				}).then(function(res){
+					if(res.success =='ok'){
+						that.changeSwiper = '';
+						that.getSwiper();
+					}
+				});
+			},
+			getGood:function(){
+				var that = this;
+				fetch('http://localhost:3000/admin/good').then(function(res){
+					return res.json();
+				}).then(function(res){
+					that.good_data = res.data;
+				})
+			},
+			goodBtn:function(goodId){
+				// console.log(goodId);
+				this.changeGood = goodId;
+			},
+			updateGood:function(obj){
+				var that = this;
+				var str ='goodId='+obj.goodId + '&title=' + obj.title + '&author=' + obj.author + '&introduction=' + obj.introduction + '&imgurl=' + obj.imgurl;
+				console.log(str)
+				//注意地址格式....http://
+				fetch('http://localhost:3000/admin/updateGood?'+str).then(function(res){
+					return res.json();
+					console.log(res);					
+				}).then(function(res){
+					if(res.success =='ok'){
+						that.changeGood = '';
+						that.getGood();
+					}
+				});
+			},
+			getClass:function(){
+				var that = this;
+				fetch('http://localhost:3000/admin/classes').then(function(res){
+					return res.json();
+				}).then(function(res){
+					that.class_data = res.data;
+					console.log(res);
+				})
+			},
+			classBtn:function(classId){
+				// console.log(goodId);
+				this.changeClass = classId;
+			},
+			updateClass:function(obj){
+				var that = this;
+				var str ='classId='+obj.classId + '&title=' + obj.title + '&introduction=' + obj.introduction;
+				// console.log(str)
+				fetch('http://localhost:3000/admin/updateClass?'+str).then(function(res){
+					return res.json();
+					console.log(res);					
+				}).then(function(res){
+					if(res.success =='ok'){
+						that.changeClass = '';
+						that.getClass();
+					}
+				});
+			},
+			getNotice:function(){
+				var that = this;
+				fetch('http://localhost:3000/admin/notice').then(function(res){
+					return res.json();
+				}).then(function(res){
+					that.notice_data = res.data;
+					console.log(res);
+				})
+			},
+			noticeBtn:function(noticeId){
+				// console.log(goodId);
+				this.changeNotice = noticeId;
+			},
+			updateNotice:function(obj){
+				var that = this;
+				var str ='noticeId='+obj.noticeId + '&titleTop=' + obj.titleTop + '&title=' + obj.title+ '&content=' + obj.content+ '&titleBottom=' + obj.titleBottom+ '&imgurl=' + obj.imgurl;
+				// console.log(str)
+				fetch('http://localhost:3000/admin/updateNotice?'+str).then(function(res){
+					return res.json();
+					console.log(res);					
+				}).then(function(res){
+					if(res.success =='ok'){
+						that.changeNotice = '';
+						that.getClass();
+					}
+				});
+			}
+		},
+		beforeMount:function(){
+			this.getSwiper();
+			this.getGood();
+			this.getClass();
+			this.getNotice();
+		}
+	})
+	
+</script>
