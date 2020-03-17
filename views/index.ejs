@@ -38,7 +38,7 @@
   <div class="header-w3layouts">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="hedder-up">
-        <h1 ><a href="index.html" class="navbar-brand" data-blast="color">Classwork</a></h1>
+        <h1 ><a href="index.html" class="navbar-brand" data-blast="color">Library</a></h1>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -88,39 +88,7 @@
     <div class="clearfix"></div>
   </div>
 </div>
-<!-- //banner -->
-<!--about-->
-<section class="pt-md-5 pt-sm-4 pt-3">
-  <div class="container-fluid ">
-    <div class="main row ">
-      <!-- TENTH EXAMPLE -->
-      <div class="col-lg-4 view view-tenth">
-        <img alt="" class="img-fluid" id="mainRow1">
-        <div class="mask">
-          <h3 data-blast="bgColor">Success</h3>
-          <p>Vivamus sed poritor felis.ntesque habitant morbi senectus et netus</p>
-          <a href="#" class="info" data-toggle="modal" data-target="#exampleModalLive" data-blast="bgColor">Read More</a>
-        </div>
-      </div>
-      <div class="col-lg-4 view view-tenth">
-        <img alt="" class="img-fluid" id="mainRow2">
-        <div class="mask">
-          <h3 data-blast="bgColor">Hard Work</h3>
-          <p>Vivamus sed poritor felis.ntesque habitant morbi senectus et netus</p>
-          <a href="#" class="info" data-toggle="modal" data-target="#exampleModalLive" data-blast="bgColor">Read More</a>
-        </div>
-      </div>
-      <div class="col-lg-4 view view-tenth">
-        <img alt="" class="img-fluid" id="mainRow3">
-        <div class="mask">
-          <h3 data-blast="bgColor">Admission</h3>
-          <p>Vivamus sed poritor felis.ntesque habitant morbi senectus et netus</p>
-          <a href="#" class="info" data-toggle="modal" data-target="#exampleModalLive" data-blast="bgColor">Read More</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 <section class="about" id="about">
   <div class="container py-lg-5 py-md-5 py-sm-4 py-3">
     <!--Horizontal Tab-->
@@ -136,8 +104,7 @@
           <div class="row mt-lg-4 mt-3">
             <div class="col-md-7 latest-list">
               <div class="about-jewel-agile-left">
-              	<h5 data-blast="color"> <%= data[3][i].title %></h5>
-                
+              	<h5 data-blast="color"> <%= data[3][i].title %></h5>              
                 <p><%= data[3][i].content %></p>            
                 <h4 class="mb-3" data-blast="color"> <%= data[3][i].titleBottom %> </h4>
               </div>
@@ -145,8 +112,7 @@
             <div class="col-md-5 about-txt-img">
               <img src="<%= data[3][i].imgurl %>" class="img-thumbnail" alt="">
             </div>
-          </div>
-		
+          </div>		
         </div>
 		 <% } %> 
       </div>
@@ -203,30 +169,6 @@
 	        </div>
 	    </div>
 </section>
-<!--//service-->
-<!--blog -->
-
-<!--//blog -->
-<!--Subscribe-->
-<section class="py-md-5 py-sm-4 py-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-md-6 subscrib-w3layouts text-center">
-        <h2 data-blast="color">Subscribe Us</h2>
-      </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="newsletter">
-          <form action="#" method="post" class="d-flex">
-            <input type="email" class="form-control" placeholder="Your Email" required="">
-            <button class="btn1">
-              <span class="far fa-envelope"></span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <div id="exampleModalLive" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -278,7 +220,6 @@
 
   });
 </script>
-
 <script src="./js/easy-responsive-tabs.js"></script>
 <script>
   $(document).ready(function () {
@@ -323,29 +264,21 @@
 <!-- here stars scrolling icon -->
 <script>
   $(document).ready(function () {
-
     var defaults = {
       containerID: 'toTop', // fading element id
       containerHoverID: 'toTopHover', // fading element hover id
       scrollSpeed: 1200,
       easingType: 'linear'
     };
-
-
     $().UItoTop({
       easingType: 'easeOutQuart'
     });
-
   });
 </script>
 <!-- //here ends scrolling icon -->
 <!--bootstrap working-->
 <script src="./js/bootstrap.min.js"></script>
-
 <%= data.success %>
 
-<script>
-
-</script>
 </body>
 </html>
