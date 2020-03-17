@@ -1,5 +1,5 @@
-![推荐列表](https://github.com/caiwenyu123/Library-System/blob/master/image/good.JPG)
-![书籍列表](https://github.com/caiwenyu123/Library-System/blob/master/image/list.JPG)
+![推荐列表](https://github.com/caiwenyu123/Library-System/master/image/good.JPG)
+![书籍列表](https://github.com/caiwenyu123/Library-System/master/image/list.JPG)
 
 #   安装依赖    
 
